@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+<html>
+    <body>
+        {% block content %}
+          <section class="group-cr w-100 h-100">
+            <div class="container-fluid d-flex align-items-center">
+              <form method="post">{% csrf_token %}
+                <div class="my-3 py-2">
+                  {{form.name}}
+                </div>
+                <div class="my-3 py-2">
+                  {{form.field}}
+                </div>
+                <div class="my-3 py-2">
+                  {{form.des}}
+                </div>
+                <div class="my-3 py-2">
+                  <button class="btn" type="submit" value="save">Submit</button>
+                </div>
+              </form>
+            </div>
+          </section>
+        {% endblock %}
+    </body>
+</html>

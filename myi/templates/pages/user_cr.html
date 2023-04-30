@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+<html>
+    {% block content %}
+        <body>
+            <section class="user-cr d-flex align-items-center">
+                <div class="container-fluid d-flex align-items-center justify-content-center py-2 mt-4">
+                    <div class="col-lg-12 px-lg-5">
+                        <h3 clss="py-2">Create Your Profile</h3>
+                        <p class="py-2">Make a/an student/alumni profile and connect with students and experienced individuals,<br>
+                        share your knowledge, resolve queries, learn from the experiences of others.</p>
+                        <form class="user-form py-4" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="col-lg-12">
+                                <div class="row d-flex justify-content-center w-100">
+                                    <div class="col-lg-6 my-3 py-2">
+                                        {{form.field}}
+                                    </div>
+                                    <div class="col-lg-6 my-3 py-2">
+                                        {{form.uni}}
+                                    </div>
+                                </div>    
+                                {% if form.experience != null %}
+                                    <div class="col-lg-6 my-3 py-2">
+                                        {{form.experience}}
+                                    </div>
+                                {% endif %}   
+                                <div class="my-3 py-2">
+                                    {{form.about}}
+                                </div>
+                                <div class="my-3">
+                                    <button class="btn" type="submit" value="save">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </body>
+    {% endblock %}    
+</html>

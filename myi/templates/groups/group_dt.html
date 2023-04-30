@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+<html>
+   <body>
+      {% block content %}
+        <section class="group-dt d-flex align-items-center justify-content-center w-100">
+          <div class="col-lg-12">
+            <div class="container d-flex align-items-center justify-content-center w-100">
+              <div class="group-info col-lg-3 text-center">
+                <h3 class="py-2">{{object.name}}</h3>
+                <h5 class="py-2">{{object.field}}</h5>
+              </div>
+            </div>
+            <div class="container-fluid d-flex align-items-center justify-content-center w-100" id="alumni_image">
+              {% for image in object.alumni_image %}
+                <img class="profile-img py-5 mx-5" src="{{image}}">
+              {% endfor %}
+            </div>
+            <div class="container-fluid d-flex align-items-center justify-content-center py-3">
+                <div class="group-posts w-50">
+                   {% for post in object.posts %}
+                      <div class="post-dt">
+                          {% if post.post_std != null %}
+                           <div class="post-user-info d-flex py-2">
+                             <img class="profile-img py-2 mx-2" src="/media/{{post.post_std.profile_image}}">
+                             <p class="py-2 px-2">{{post.post_std.user.username}}</p>
+                           </div>
+                          {% else %}
+                            <div class="post-user-info d-flex py-2">
+                              <img class="profile-img py-2 mx-2" src="/media/{{post.post_alm.profile_image}}">
+                              <p class="py-2 px-2">{{post.post_alm.user.username}}</p>
+                            </div>
+                          {% endif %}  
+                          <p class="py-2 px-2">{{post.text}}</p>
+                          {% if post.image != null %}
+                            <div class="post-img py-2 px-2">
+                              <img src="{{ post.image}}">
+                            </div>
+                          {% endif %}
+                          {% if post.video != null %}
+                          <div class="post-img py-2 px-2">
+                            <img src="{{ post.video}}">
+                          </div>
+                        {% endif %}
+                          <div class="post-info d-flex justify-content-center mt-3">
+                            <p class="py-2 px-2">Likes  {{post.likes}}</p>
+                            <p class="py-2 px-2">Shares  {{post.shares}}</p>
+                          </div>
+                      </div>
+                   {% endfor %}
+                </div>
+                <!-- <div class="add-post col-lg-3">
+                    <a href="{{object.add_post}}"><button class="btn">Add Post</button></a>
+                </div> -->
+            </div>
+          </div>
+        </section>
+      {% endblock %}
+   </body>
+</html>

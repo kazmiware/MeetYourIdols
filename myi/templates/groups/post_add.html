@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+<html>
+    <body>
+        {% block content %}
+           <section class="add-post w-100 h-100">
+             <div class="container-fluid">
+                <form class="post-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="my-3 py-2">
+                        {{form.text}}
+                    </div>
+                    <div class="my-3 py-2">
+                        {{form.image}}
+                    </div>
+                    <div class="my-3 py-2">
+                        {{form.video}}
+                    </div>
+                    <div class="my-3 py-2">
+                       <button class="btn" type="submit" value="save">Submit</button>
+                    </div>
+                </form>
+             </div>
+           </section>
+        {% endblock %}
+    </body>
+</html>
