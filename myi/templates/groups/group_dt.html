@@ -4,20 +4,41 @@
 
 <html>
    <body>
+      {% block menu-items %}
+        <img class="logo mx-2" src="{% static 'pictures/myi.png' %}">
+        <div class="container d-flex">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/groups/list">Groups</a>
+          {% if user.is_authenticated %}
+            <a class="nav-link" href="/logout">Logout</a>
+          {% endif %}
+        </div>
+      {% endblock %}
+
       {% block content %}
-        <section class="group-dt d-flex align-items-center justify-content-center w-100">
-          <div class="col-lg-12">
-            <div class="container d-flex align-items-center justify-content-center w-100">
-              <div class="group-info col-lg-3 text-center">
+        <section class="group-dt d-flex w-100 h-100">
+          <div class="side-nav col-lg-2 h-100 py-2">
+            <div class="container text-center" style="position: fixed;">
+              <div class="group-info col-lg-10">
                 <h3 class="py-2">{{object.name}}</h3>
-                <h5 class="py-2">{{object.field}}</h5>
+              </div>
+              <div class="sid-br col-lg-10">
+                 <ul class="options py-2 px-4">
+                  <li class="py-2">Posts</li>
+                  <li class="py-2">Images</li>
+                  <li class="py-2">Videos</li>
+                  <li class="py-2">Alumnis</li>
+                  <li class="py-2">Members</li>
+                 </ul>
               </div>
             </div>
-            <div class="container-fluid d-flex align-items-center justify-content-center w-100" id="alumni_image">
+          </div>
+          <div class="col-lg-8 py-2">
+            <!-- <div class="container-fluid d-flex align-items-center justify-content-center w-100" id="alumni_image">
               {% for image in object.alumni_image %}
                 <img class="profile-img py-5 mx-5" src="{{image}}">
               {% endfor %}
-            </div>
+            </div> -->
             <div class="container-fluid d-flex align-items-center justify-content-center py-3">
                 <div class="group-posts w-50">
                    {% for post in object.posts %}
@@ -51,9 +72,13 @@
                       </div>
                    {% endfor %}
                 </div>
-                <!-- <div class="add-post col-lg-3">
+            </div>
+          </div>
+          <div class="side-nav d-flex justify-content-center col-lg-2 h-100" id="post-options">
+            <div class="container text-center py-4" style="position: fixed;">
+              <div class="add-post col-lg-10">
                     <a href="{{object.add_post}}"><button class="btn">Add Post</button></a>
-                </div> -->
+                </div>
             </div>
           </div>
         </section>

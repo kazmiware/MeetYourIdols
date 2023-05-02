@@ -150,7 +150,7 @@ body{
 
 .logo{
 	width: 10%;
-	height: 10%
+	height: 5%
 }
 
 @media screen and (max-width: 768px){
@@ -518,16 +518,17 @@ hr{
 /**************************/
 /*       Group Detail     */
 /**************************/
-
-.group-dt .container{
-	background-color: var(--primary);
-	min-width: 100%;
-	padding-bottom: 7%;
+.group-dt .side-nav{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.group-dt .container .group-info h3,
-.group-dt .container .group-info h5{
-	color: var(--primary-light);
+.group-dt .container{
+	min-height: 100%;
+	width: 10rem;
+}
+
+.group-dt .container .sid-br{
+   text-align: left;
 }
 
 .group-dt .profile-img{
@@ -537,9 +538,7 @@ hr{
 }
 
 .group-dt .post-dt{
-	border: 1px var(--tertiary) solid;
-	border-radius: 3px;
-	min-height: fit-content;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .group-dt .post-dt .post-img img{
