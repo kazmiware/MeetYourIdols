@@ -4,9 +4,206 @@
 
 <html>
     <body>
+
         {% block content %}
-            <section class="profile d-flex align-items-center h-100">
-                <div class="container-fluid align-items-center w-100" id="your-info">
+
+            <section>
+                <div class="main d-flex justify-content-center">
+                    <div class="main-container w-100">
+                        <div class="profile">
+                          <div class="profile-avatar">
+                            <img src="{{object.profile_image}}" alt="" class="profile-img">
+                          </div>
+                          <img src="{{object.banner_image}}" alt="" class="profile-cover">
+                          <div class="profile-menu d-felx justify-content-center">
+                            <a class="profile-menu-link active mx-2" href="#about">Your Profile</a>
+                            <a class="profile-menu-link mx-2" href="#edit">Edit Profile</a>
+                            <a class="profile-menu-link mx-2">Your Posts</a>
+                            <a class="profile-menu-link mx-2">Your Groups</a>
+                          </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="timeline" id="about">
+                    <div class="timeline-left d-flex justify-content-center">
+                        <div class="intro box w-100 mx-4">
+                            <div class="intro-title">
+                            Your Info
+                            <button class="intro-menu"></button>
+                            </div>
+                            <div class="info">
+                            <div class="info-item">
+                                <h6 class="text-light">Name:  {{object.user.name.upper}}</h6>
+                            </div>  
+                            <div class="info-item">
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 503.889 503.889" fill="currentColor">
+                                <path d="M453.727 114.266H345.151V70.515c0-20.832-16.948-37.779-37.78-37.779H196.517c-20.832 0-37.78 16.947-37.78 37.779v43.751H50.162C22.502 114.266 0 136.769 0 164.428v256.563c0 27.659 22.502 50.161 50.162 50.161h403.565c27.659 0 50.162-22.502 50.162-50.161V164.428c0-27.659-22.503-50.162-50.162-50.162zm-262.99-43.751a5.786 5.786 0 015.78-5.779h110.854a5.786 5.786 0 015.78 5.779v43.751H190.737zM32 164.428c0-10.015 8.147-18.162 18.162-18.162h403.565c10.014 0 18.162 8.147 18.162 18.162v23.681c0 22.212-14.894 42.061-36.22 48.27l-167.345 48.723a58.482 58.482 0 01-32.76 0L68.22 236.378C46.894 230.169 32 210.321 32 188.109zm421.727 274.725H50.162c-10.014 0-18.162-8.147-18.162-18.161V253.258c8.063 6.232 17.254 10.927 27.274 13.845 184.859 53.822 175.358 52.341 192.67 52.341 17.541 0 7.595 1.544 192.67-52.341 10.021-2.918 19.212-7.613 27.274-13.845v167.733c.001 10.014-8.147 18.162-18.161 18.162z" /></svg> -->
+                                <h6 class="text-light">Related Field:  {{object.field}}</h6>
+                            </div>
+                            <!-- <div class="info-item">
+                                <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                <path d="M437 75C388.7 26.6 324.4 0 256 0S123.3 26.6 75 75C26.6 123.3 0 187.6 0 256s26.6 132.7 75 181c48.3 48.4 112.6 75 181 75s132.7-26.6 181-75c48.4-48.3 75-112.6 75-181s-26.6-132.7-75-181zM252.4 481.9c-52-.9-103.7-19.5-145.2-55.8L256 277.2l21.7 21.8a165.9 165.9 0 00-35.7 87c-3.5 30.5 0 63.3 10.4 95.9zM299 320.3l105.7 105.8a224.8 224.8 0 01-121.3 54.1C262 419.5 268 360.3 299 320.3zm21.2-21.2c40-31 99.2-37 160-15.6A224.8 224.8 0 01426 404.8zM482 252.4a231.7 231.7 0 00-96-10.4 165.9 165.9 0 00-87 35.7L277.3 256l148.9-148.8c36.3 41.5 55 93.2 55.8 145.2zm-290.2-39.5c-40 31-99.2 37-160 15.6A224.8 224.8 0 0186 107.2zm-84.5-127a224.8 224.8 0 01121.3-54.1C250 92.5 244 151.7 213 191.7zM270 126c3.5-30.5 0-63.3-10.4-95.9 52 .9 103.7 19.5 145.2 55.8L256 234.8 234.3 213a165.9 165.9 0 0035.7-87zM30 259.6a242 242 0 0072.7 11.7c7.8 0 15.6-.5 23.2-1.3a165.9 165.9 0 0087-35.7l21.8 21.7L85.9 404.8a225.3 225.3 0 01-55.8-145.2z" /></svg>
+                                Player name <a href="#">Quan Ha</a>
+                            </div> -->
+                            </div>
+                        </div>
+                        <div class="intro box w-100 mx-4" style="background-color: #0aa0db;">
+                            <div class="intro-title">
+                            About
+                            <button class="intro-menu"></button>
+                            </div>
+                            <div class="info">
+                                <div class="info-item">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                    <path d="M9 22V12h6v10" />
+                                    </svg> -->
+                                    <h6 class="text-light">{{object.about}}</h6>
+                                </div>
+                            <!-- <div class="info-item">
+                                <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                <path d="M437 75C388.7 26.6 324.4 0 256 0S123.3 26.6 75 75C26.6 123.3 0 187.6 0 256s26.6 132.7 75 181c48.3 48.4 112.6 75 181 75s132.7-26.6 181-75c48.4-48.3 75-112.6 75-181s-26.6-132.7-75-181zM252.4 481.9c-52-.9-103.7-19.5-145.2-55.8L256 277.2l21.7 21.8a165.9 165.9 0 00-35.7 87c-3.5 30.5 0 63.3 10.4 95.9zM299 320.3l105.7 105.8a224.8 224.8 0 01-121.3 54.1C262 419.5 268 360.3 299 320.3zm21.2-21.2c40-31 99.2-37 160-15.6A224.8 224.8 0 01426 404.8zM482 252.4a231.7 231.7 0 00-96-10.4 165.9 165.9 0 00-87 35.7L277.3 256l148.9-148.8c36.3 41.5 55 93.2 55.8 145.2zm-290.2-39.5c-40 31-99.2 37-160 15.6A224.8 224.8 0 0186 107.2zm-84.5-127a224.8 224.8 0 01121.3-54.1C250 92.5 244 151.7 213 191.7zM270 126c3.5-30.5 0-63.3-10.4-95.9 52 .9 103.7 19.5 145.2 55.8L256 234.8 234.3 213a165.9 165.9 0 0035.7-87zM30 259.6a242 242 0 0072.7 11.7c7.8 0 15.6-.5 23.2-1.3a165.9 165.9 0 0087-35.7l21.8 21.7L85.9 404.8a225.3 225.3 0 01-55.8-145.2z" /></svg>
+                                Player name <a href="#">Quan Ha</a>
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row d-flex align-items-center justify-content-center py-5 px-4 w-75" id="edit">
+                    <h2 class="fw-bold">Edit Your Profile</h2>
+                    <div class="container-fluid d-flex align-items-center">
+                        <form class="user-form py-2 w-100" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="col-lg-12 py-2">
+                                <div class="row d-flex justify-content-center w-100">
+                                    <div class="col-lg-6 my-3 py-2">
+                                        <h4 class="py-2 mb-3">{{form.field.label}}</h4>
+                                        {{form.field}}
+                                    </div>
+                                    <div class="col-lg-6 my-3 py-2">
+                                        <h4 class="py-2 mb-3">{{form.uni.label}}</h4>
+                                        {{form.uni}}
+                                    </div>
+                                </div>
+                                {% if form.experience != null %}
+                                    <div class="col-lg-6 my-3 py-2">
+                                        <h4 class="py-2 mb-3">{{form.experience.label}}</h4>
+                                        {{form.experience}}
+                                    </div>
+                                {% endif %}    
+                                <div class="my-3 py-2">
+                                    <h4 class="py-2 mb-3">{{form.about.label}}</h4>
+                                    {{form.about}}
+                                </div>
+                                <div class="my-3">
+                                    <button class="btn" type="submit" value="save">Submit</button>
+                                </div>
+                            </div>
+                        </form>   
+                    </div>
+                </div>     
+                 <!-- ########################## About Us Starts Here #############################
+                    <div id="about" class="about d-flex align-items-center justify-content-center px-4 bg-white w-100 h-100">
+                        <div class="row col-lg-6">
+                                <div class="col-md-7">
+                                    <h2 class="fw-bolder">About Me</h2>
+                                    <p class="py-2"><b>I am, {{user.username.upper}}</b></p>
+                                    <p class="py-2 text-justify">{{object.about}}</p>
+                                    
+                                    <h4 class="py-2 fw-bolder">What is my field?</h4>
+                                    <p class="py-2">{{object.field}}</p>
+                                    
+                                    <div class="row skill-set">
+                                        {% if object.experience != null %}
+                                            <div class="col-md-6 py-3">
+                                            <h6 class=" py-2 fw-bold">Experience</h6>
+                                            <p class="py-2">{{object.experience}}</p>
+                                            </div>
+                                        {% endif %}    
+                                        <div class="col-md-6 py-3">
+                                            <h6 class="py-2 fw-bold">University</h6>
+                                            <p class="py-2">{{object.uni}}</p>
+                                        </div>
+                                        <!-- <div class="col-md-6 py-3">
+                                            <h6 class="fw-bold">Angular.Js</h6>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 py-3">
+                                            <h6 class="fw-bold">Laravel</h6>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 py-3">
+                                            <h6 class="fw-bold">Django</h6>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 py-3">
+                                            <h6 class="fw-bold">Next Js</h6>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" style="width: 66%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100">66%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 py-3">
+                                            <h6 class="fw-bold">Phoptoshop</h6>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" style="width: 82%;" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100">82%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 py-3">
+                                            <h6 class="fw-bold">Sketch</h6>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-label="Example with label" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
+                                            </div>
+                                        </div> -->
+                                   <!-- </div>
+                                </div>
+                        </div>
+                        <div class="col-md-5">
+                            <img class="profile-image" src="{{object.profile_image}}" alt="">
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center justify-content-center py-5 px-lg-5 w-100 h-100">
+                        <h2 class="fw-bolder">Edit Your Profile</h2>
+                        <div class="container-fluid d-flex align-items-center">
+                            <form class="user-form py-2 w-100" method="post" enctype="multipart/form-data">{% csrf_token %}
+                                <div class="col-lg-12 py-2">
+                                    <div class="row d-flex justify-content-center w-100">
+                                        <div class="col-lg-6 my-3 py-2">
+                                            <h4 class="py-2 mb-3">{{form.field.label}}</h4>
+                                            {{form.field}}
+                                        </div>
+                                        <div class="col-lg-6 my-3 py-2">
+                                            <h4 class="py-2 mb-3">{{form.uni.label}}</h4>
+                                            {{form.uni}}
+                                        </div>
+                                    </div>
+                                    {% if form.experience != null %}
+                                        <div class="col-lg-6 my-3 py-2">
+                                            <h4 class="py-2 mb-3">{{form.experience.label}}</h4>
+                                            {{form.experience}}
+                                        </div>
+                                    {% endif %}    
+                                    <div class="my-3 py-2">
+                                        <h4 class="py-2 mb-3">{{form.about.label}}</h4>
+                                        {{form.about}}
+                                    </div>
+                                    <div class="my-3">
+                                        <button class="btn" type="submit" value="save">Submit</button>
+                                    </div>
+                                </div>
+                            </form>   
+                        </div>
+                    </div> -->
+                <!-- <div class="container-fluid align-items-center w-100" id="your-info">
                     <div class="d-flex align-items-center justify-content-center text-center col-lg-12 py-2">
                         <div class="d-flex justify-content-center w-100">
                             <ul class="d-flex text-center py-2">
@@ -102,7 +299,7 @@
                                 </div>
                             </form>   
                         </div>
-                </div>
+                </div> -->
             </section>
         {% endblock %}    
     </body>

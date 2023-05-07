@@ -6,6 +6,7 @@ import requests
 
 from .forms import (SignUpForm, AlumniForm, StudentForm, LoginForm)
 from .models import (Alumni, Student)
+from groups.models import (Post, Group)
 # Create your views here.
 
 class UserCreateView(View):
@@ -116,7 +117,7 @@ class StudentCreateView(CreateView):
 class AlumniDetailView(View):
 
     queryset = Alumni.objects.all()
-    template_name = "pages/user_dt.html"
+    template_name = "index.html"
 
     def get(self, request, *args, **kwargs):
 
@@ -124,17 +125,18 @@ class AlumniDetailView(View):
         obj = self.get_object(pk)
         init = {
             'field': obj['field'],
+            'experience': obj['experience'],
             'uni': obj['uni'],
             'about': obj['about']
         }
-        form = StudentForm(request.POST or None, initial=init)
+        form = AlumniForm(request.POST or None, initial=init)
         return render(request, "pages/user_dt.html", {"object":obj, "form":form})
     
     
     def post(self, request, *args, **kwargs):
 
         pk = self.kwargs.get('pk')
-        form = StudentForm(request.POST or None)
+        form = AlumniForm(request.POST or None)
         self.form_valid(form, pk)
         obj = self.get_object(pk)
         return render(request, "pages/user_dt.html", {"object":obj, "form":form})
@@ -144,8 +146,11 @@ class AlumniDetailView(View):
         
         response = requests.get(f'http://127.0.0.1:8000/user/api/alumni/detail/{pk}')
         obj = response.json()
-        profile_image = get_object_or_404(Alumni, pk=pk).profile_image.url
+        object = get_object_or_404(Alumni, pk=pk)
+        profile_image = object.profile_image.url
+        banner_image = object.banner_image.url
         obj['profile_image'] = profile_image
+        obj['banner_image'] = banner_image
         return obj
     
 
@@ -197,10 +202,11 @@ class StudentDetailView(View):
         
         response = requests.get(f'http://127.0.0.1:8000/user/api/student/detail/{pk}')
         obj = response.json()
-        profile_image = get_object_or_404(Student, pk=pk).profile_image.url
-        print(profile_image)
+        object = get_object_or_404(Student, pk=pk)
+        profile_image = object.profile_image.url
+        banner_image = object.banner_image.url
         obj['profile_image'] = profile_image
-
+        obj['banner_image'] = banner_image
         return obj
     
 

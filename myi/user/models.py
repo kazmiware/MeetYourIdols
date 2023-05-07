@@ -8,6 +8,7 @@ CHOICES = [("Student", "Student"), ("Alumni", "Alumni")]
 
 class Alumni(models.Model):
 
+    banner_image = models.ImageField(upload_to='profile_pics/alumnis', default="profile_pics/default.jpg")
     profile_image = models.ImageField(upload_to='profile_pics/alumnis', default="profile_pics/default.jpg")
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, 
                              related_name="alumni_user")
@@ -19,6 +20,7 @@ class Alumni(models.Model):
 
 class Student(models.Model):
 
+    banner_image = models.ImageField(upload_to='profile_pics/students', default="profile_pics/default.jpg")
     profile_image = models.ImageField(upload_to='profile_pics/students', default="profile_pics/default.jpg")
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, 
                              related_name="student_user")

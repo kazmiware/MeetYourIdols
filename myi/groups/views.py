@@ -24,6 +24,7 @@ class AddPostView(View):
 
         form = PostForm(request.POST or None)
         self.form_valid(form)
+        form = PostForm()
         return render(request, 'groups/post_add.html', {'form':form})
     
 
