@@ -9,6 +9,7 @@ class UserSerializer(serializers.Serializer):
     def get_name(self, user):
 
         return user.username
+    
 
 class AlumniSerializer(serializers.ModelSerializer):
 

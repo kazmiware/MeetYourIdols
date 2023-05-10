@@ -22,12 +22,15 @@ class Group(models.Model):
 
     admin = models.ForeignKey(User, null=True, on_delete=models.CASCADE, 
                               related_name="group_admin")
+    banner = models.ImageField(upload_to="group_images/banners", null=True)
+    image = models.ImageField(upload_to="group_images/main_images", null=True)
     name = models.CharField(max_length=50, default="Your Group")
     field = models.CharField(max_length=50, default="Electrical")
     des = models.CharField(max_length=150, default="None")
     posts = models.ManyToManyField(Post)
     date = models.DateField(null=True)
     alumnis = models.ManyToManyField(Alumni)
+    students = models.ManyToManyField(Student)
 
 
     def get_post_url(self):

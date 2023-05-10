@@ -45,6 +45,7 @@ class GroupSerializer(serializers.ModelSerializer):
     posts = PostGroupSerializer(read_only=True, many=True)
     date = serializers.DateField(read_only=True)
     alumnis = AlumniSerializer(read_only=True, many=True)
+    students = StudentSerializer(read_only=True, many=True) 
     add_post = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -58,6 +59,7 @@ class GroupSerializer(serializers.ModelSerializer):
             'posts',
             'date',
             'alumnis',
+            'students',
             'add_post'
         ]
 

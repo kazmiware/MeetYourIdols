@@ -1,5 +1,9 @@
+from typing import Any, Optional
+from django.db import models
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import (render, redirect, get_object_or_404)
-from django.views.generic import (View, CreateView, DetailView)
+from django.views.generic import (View, CreateView, UpdateView)
 from django.contrib.auth.models import User
 from django.contrib.auth import (login, authenticate)
 import requests
@@ -71,7 +75,7 @@ class AlumniCreateView(CreateView):
     template_name = "pages/user_cr.html"
     form_class =  AlumniForm
     queryset = Alumni.objects.all()
-    success_url = "/profile"
+    success_url = "/user/alumni/detail"
 
     def form_valid(self, form):
 
@@ -88,7 +92,22 @@ class AlumniCreateView(CreateView):
                 'about':about
             }
             response = requests.post('http://127.0.0.1:8000/user/api/alumni', data=data)
-        return redirect(self.success_url)
+        return redirect(self.success_url + f"/{self.save_files(self.request)}")
+    
+
+    def save_files(self, request):
+
+        obj = Alumni.objects.last()
+        print(request.FILES)
+        banner = request.FILES.get('banner_image')
+        img = request.FILES.get('profile_image')
+        if banner != None:
+           obj.banner_image.save(banner.name, banner, save=True) 
+        if img != None:   
+           obj.profile_image.save(img.name, img, save=True) 
+        obj.save()
+        return obj.pk 
+
 
 
 class StudentCreateView(CreateView):
@@ -96,7 +115,7 @@ class StudentCreateView(CreateView):
     template_name = "pages/user_cr.html"
     form_class =  StudentForm
     queryset = Student.objects.all()
-    success_url = "/profile"
+    success_url = "/user/student/detail"
 
     def form_valid(self, form):
 
@@ -110,8 +129,23 @@ class StudentCreateView(CreateView):
                 'uni':uni,
                 'about':about,
             }
-            response = requests.post('http://127.0.0.1:8000/user/api/student', data=data)
-        return redirect(self.success_url) 
+            response = requests.post('http://127.0.0.1:8000/user/api/student', data=data)  
+            print(response.status_code) 
+        return redirect(self.success_url + f"/{self.save_files(self.request)}") 
+    
+
+    def save_files(self, request):
+
+        obj = Student.objects.last()
+        print(request.FILES)
+        banner = request.FILES.get('banner_image')
+        img = request.FILES.get('profile_image')
+        if banner != None:
+           obj.banner_image.save(banner.name, banner, save=True) 
+        if img != None:   
+           obj.profile_image.save(img.name, img, save=True) 
+        obj.save()
+        return obj.pk
 
 
 class AlumniDetailView(View):
@@ -167,8 +201,7 @@ class AlumniDetailView(View):
                 'about': about
             }
             response = requests.put(f'http://127.0.0.1:8000/user/api/student/update/{pk}',
-                                    data=data)
-
+                                    data=data)      
 
 class StudentDetailView(View):
 
@@ -227,8 +260,97 @@ class StudentDetailView(View):
                 
 
           
-        
+class AlumniUpdateView(UpdateView):        
 
+    queryset = Alumni.objects.all() 
+    template_name = "pages/user_cr.html"
+    form_class = AlumniForm
+    success_url = "user/alumni/detail"
     
 
+    def form_valid(self, form):
 
+        pk = self.kwargs.get('pk')
+        if form.is_valid():
+            field = form.cleaned_data['field']
+            experience = form.cleaned_data['experience']
+            about = form.cleaned_data['about']
+            uni = form.cleaned_data['uni']
+            data = {
+                'user':self.request.user,
+                'field':field,
+                'experience':experience,
+                'uni':uni,
+                'about':about
+            }
+            response = requests.post(f'http://127.0.0.1:8000/user/api/alumni/update/{pk}', 
+                                     data=data)
+        return redirect(self.success_url + f"/{self.save_files(self.request)}")
+    
+
+    def get_object(self, queryset):
+        return super().get_object(queryset)
+    
+
+    def save_files(self, request):
+
+        obj = Alumni.objects.last()
+        print(request.FILES)
+        banner = request.FILES.get('banner_image')
+        img = request.FILES.get('profile_image')
+        if banner != None:
+            obj.banner_image.save(banner.name, banner, save=True) 
+        if img != None:   
+            obj.profile_image.save(img.name, img, save=True) 
+        obj.save()
+        return obj.pk
+    
+
+class StudentUpdateView(UpdateView):        
+
+    queryset = Student.objects.all() 
+    template_name = "pages/user_cr.html"
+    form_class = StudentForm
+    success_url = "user/student/detail"
+
+    def form_valid(self, form):
+
+        pk = self.kwargs.get('pk')
+        if form.is_valid():
+            field = form.cleaned_data['field']
+            experience = form.cleaned_data['experience']
+            about = form.cleaned_data['about']
+            uni = form.cleaned_data['uni']
+            data = {
+                'user':self.request.user,
+                'field':field,
+                'experience':experience,
+                'uni':uni,
+                'about':about
+            }
+            response = requests.post(f'http://127.0.0.1:8000/user/api/student/update/{pk}', 
+                                     data=data)
+        return redirect(self.success_url + f"/{self.save_files(self.request)}")
+    
+    
+    def get_object(self):
+
+        pk = self.kwargs.get('pk')
+        obj = get_object_or_404(Student, pk=pk) 
+        return obj
+    
+
+    def save_files(self, request):
+
+        obj = Student.objects.last()
+        print(request.FILES)
+        banner = request.FILES.get('banner_image')
+        img = request.FILES.get('profile_image')
+        if banner != None:
+            obj.banner_image.save(banner.name, banner, save=True) 
+        if img != None:   
+            obj.profile_image.save(img.name, img, save=True) 
+        obj.save()
+        return obj.pk    
+
+     

@@ -7,7 +7,17 @@
         {% block content %}
           <section class="group-cr w-100 h-100">
             <div class="container-fluid d-flex align-items-center">
-              <form method="post">{% csrf_token %}
+              <form class="user-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="row d-flex justify-content-center w-100">
+                  <div class="col-lg-6 my-3 py-2">
+                      <h5 class="py-2">Main Image:</h5>
+                      {{form.image}}
+                  </div>
+                  <div class="col-lg-6 my-3 py-2">
+                      <h5 class="py-2">Banner Image:</h5>
+                      {{form.banner}}
+                  </div>
+              </div>
                 <div class="my-3 py-2">
                   {{form.name}}
                 </div>

@@ -35,10 +35,9 @@ class StudentCreateApiView(CreateAPIView):
         if serializer.is_valid():
 
             user = self.request.POST.get('user')
-            img = self.request.POST.get('img')
             user = get_object_or_404(User, username=user)
             field = serializer.validated_data['field']
-            serializer.save(user=user, img=img)
+            serializer.save(user=user)
         return Response(serializer.data)
 
 

@@ -44,7 +44,8 @@ class SignUpForm(UserCreationForm):
 
 class AlumniForm(forms.ModelForm):
 
-
+    profile_image = forms.ImageField()
+    banner_image = forms.ImageField()
     field = forms.CharField(max_length=50, label="Field",
                             widget=forms.TextInput(
                                                    attrs={
@@ -79,6 +80,8 @@ class AlumniForm(forms.ModelForm):
 
         model = Alumni
         fields = [
+            'profile_image',
+            'banner_image',
             'field',
             'experience',
             'uni',
@@ -110,7 +113,8 @@ class LoginForm(forms.Form):
 
 class StudentForm(forms.ModelForm):
     
-
+    profile_image = forms.ImageField()
+    banner_image = forms.ImageField()
     field = forms.CharField(max_length=50, label="Field",
                             widget=forms.TextInput(
                                                    attrs={
@@ -136,6 +140,8 @@ class StudentForm(forms.ModelForm):
 
         model = Student
         fields = [
+            'profile_image',
+            'banner_image',
             'field',
             'uni',
             'about'

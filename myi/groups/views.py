@@ -23,17 +23,18 @@ class AddPostView(View):
     def post(self, request, *args, **kwargs):
 
         form = PostForm(request.POST or None)
-        self.form_valid(form)
+        self.form_valid(form, request)
         form = PostForm()
         return render(request, 'groups/post_add.html', {'form':form})
     
 
-    def form_valid(self, form):      
+    def form_valid(self, form, request):      
            
         if form.is_valid():
             text = form.cleaned_data['text']
-            img = self.request.FILES.get('image')
-            vid = self.request.FILES.get('video')
+            img = request.FILES.get('image')
+            vid = request.FILES.get('video')
+            print(request.FILES)
             user = get_object_or_404(Student, user=self.request.user)
             if user:
                 post = Post(text=text, post_std=user)
@@ -42,7 +43,7 @@ class AddPostView(View):
                 post = Post(text=text, post_alm=user)  
             if img != None:
                 post.image.save(img.name, img, save=True)
-            if vid !=None:  
+            if vid != None:  
                 post.video.save(vid.name, vid, save=True)
             post.save()
             group = self.get_object()
@@ -67,16 +68,48 @@ class GroupDetailView(DetailView) :
     def get_object(self):
         
         pk =self.kwargs.get('pk')
-        response  = requests.get(f'http://127.0.0.1:8000/api/group/detail/{pk}')
-        alumnis = response.json()['alumnis']
-        obj = response.json()
+        response  = requests.get(f'http://127.0.0.1:8000/api/group/detail/{pk}').json()
+        response['is_alumni'], response['request_user'] = self.get_userid(self.request)
+        response = self.get_group_images(pk, response)
+        return response
+    
+    def format_response(self, response):
+
+        alumnis = response['alumnis']
+        students = response['students']
+        obj = response  
         obj['alumni_image'] = []
+        obj['student_image'] = []
         for alumni in alumnis:
            user  = get_object_or_404(User, username=alumni['user']['username'])
            user = get_object_or_404(Alumni, user=user)
            obj['alumni_image'].append(user.profile_image.url)
-        print(obj)
-        return obj
+        for student in students:
+            user  = get_object_or_404(User, username=student['user']['username'])
+            user = get_object_or_404(Student, user=user)
+            obj['student_image'].append(user.profile_image.url) 
+        return obj    
+    
+
+    def get_userid(self, request):
+
+        user = request.user
+        obj =  get_object_or_404(Student, user=user)
+        if obj:
+
+            return 0, obj.pk
+        else:
+            
+            return 1, get_object_or_404(Alumni, user=user).pk
+        
+
+    def get_group_images(self, pk, response):    
+
+        obj = get_object_or_404(Group, pk=pk)
+        response['banner'] = obj.banner
+        response['image'] = obj.image
+        print(response)
+        return response
     
 
 class GroupCreateView(CreateView):
@@ -88,6 +121,7 @@ class GroupCreateView(CreateView):
 
     def form_valid(self, form):
 
+        print(form.is_valid())
         if form.is_valid():
 
            name = form.cleaned_data['name']
@@ -102,8 +136,23 @@ class GroupCreateView(CreateView):
                'date': date
            }
            response  = requests.post('http://127.0.0.1:8000/api/group',
-                                    data=data) 
-        return redirect(self.success_url)  
+                                    data=data)
+           print(self.request.FILES)
+           self.save_files(self.request) 
+        return redirect(self.success_url)
+
+
+    def save_files(self, request):
+
+        obj = Group.objects.last()
+        print(request.FILES)
+        banner = request.FILES.get('banner')
+        img = request.FILES.get('image')
+        if banner != None:
+           obj.banner.save(banner.name, banner, save=True) 
+        if img != None:   
+           obj.image.save(img.name, img, save=True) 
+        obj.save() 
 
 
 

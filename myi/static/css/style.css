@@ -296,7 +296,7 @@ hr{
   transition: 0.3s;
   cursor: pointer;
 }
-.profile-menu-link.active, .profile-menu-link:hover {
+.profile-menu-link:hover {
   color: #fff;
   background-color: var(--secondary);
   border-bottom: 3px solid var(--primary-light);
@@ -398,6 +398,24 @@ hr{
   margin-top: 10px
 }
 
+::-webkit-file-upload-button{
+	text-decoration: none;
+	background-color: var(--primary);
+	color: var(--primary-light);
+	padding: 10px 14px;
+	line-height: 0.7;
+	font-family: "DM Sans", sans-serif;
+	font-weight: 500;
+	border: none;
+	border-radius: 20px;
+	outline: none;
+}
+
+::-webkit-file-upload-button:active, .status-menu ::-webkit-file-upload-button:hover {
+	background-color: var(--secondary);
+	color: #fff;
+}
+
 /**********************/
 /*     Navigation     */
 /**********************/
@@ -425,6 +443,8 @@ hr{
 	color: var(--primary);
 	font-weight: bold;
 }
+
+--w
 
 .nav-link:hover{
 	color: var(--secondary);
@@ -640,7 +660,9 @@ hr{
 /*     User Createion     */
 /**************************/
 
-.user-form input{
+.user-form input[type=text],
+.user-form input[type=number],
+.user-form input[type=email]{
   width: 50%;
 	padding-bottom: 15px;
   border: none;
@@ -885,6 +907,7 @@ hr{
 /**************************/
 .add-post .container{
    background-color: var(--primary-light);
+   width: 70%;
    border-radius: 10px;
    border: 1px solid var(--primary);
 }
@@ -901,29 +924,15 @@ hr{
 	width: 200px;
 }
 
-.status-menu ::-webkit-file-upload-button{
-	text-decoration: none;
-	background-color: var(--primary);
-	color: var(--primary-light);
-	padding: 10px 14px;
-	line-height: 0.7;
-	font-family: "DM Sans", sans-serif;
-	font-weight: 500;
-	border: none;
-	border-radius: 20px;
-	outline: none;
-}
-.status-menu ::-webkit-file-upload-button:active, .status-menu ::-webkit-file-upload-button:hover {
-	background-color: var(--secondary);
-	color: #fff;
-}
 .status-menu-item + .status-menu-item {
 margin-left: 10px;
 }
+
 @media screen and (max-width: 500px) {
 .status-menu {
 	font-size: 14px;
 }
+
 .status-menu-item + .status-menu-item {
 	margin-left: 0;
 }
@@ -1039,6 +1048,32 @@ margin-left: 10px;
 
 .search-bar-svgs svg {
   margin-right: 16px;
+}
+
+/**********************/
+/*     UserTable      */
+/**********************/
+
+.user-table .user-row{
+  border-bottom: var(--primary) solid 1px;
+}
+
+.user-table .user-row .user-data{
+  padding: 2%;
+}
+
+.user-table .user-row .user-data img{
+  width: 10%;
+  height: 10%;
+}
+
+/**********************/
+/*     GroupImages    */
+/**********************/
+
+.gr-img{
+  width: 50%;
+  height: 50%;
 }
 
 
@@ -1176,14 +1211,14 @@ margin-left: 10px;
   margin-top: 18px;
 }
 
-.user-img {
+/* .user-img {
   border-radius: 50%;
   width: 45px;
   height: 45px;
   margin-right: 15px;
   object-fit: cover;
   object-position: center;
-}
+} */
 
 .username {
   font-size: 15px;

@@ -26,7 +26,9 @@ class PostForm(forms.ModelForm):
 
 
 class GroupForm(forms.ModelForm):
-
+    
+    banner = forms.ImageField(required=False)
+    image = forms.ImageField(required=False)
     name = forms.CharField(max_length=50,
                             widget=forms.TextInput(
                                                      attrs = {
@@ -56,6 +58,9 @@ class GroupForm(forms.ModelForm):
 
         model = Group
         fields = [
+            'banner',
+            'image',
             'name',
-            'field'
+            'field',
+            'des'
         ]         
